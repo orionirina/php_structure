@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <route path="/" controller="HomeController" action="index" method="GET" />
+    <route path="/login" controller="LoginController" action="showLogin" method="GET" />
+    <route path="/login" controller="LoginController" action="handleLogin" method="POST" />
+    <route path="/reservations" controller="ReservationController" action="listReservations" method="GET" />
+    <route path="/reservation" controller="ReservationController" action="showReservationForm" method="GET" />
+    <route path="/reservation" controller="ReservationController" action="createReservation" method="POST" />
+    <route path="/reservations/view" controller="ReservationController" action="showReservation" method="GET" />
+    <route path="/reservations/edit" controller="ReservationController" action="editReservationForm" method="GET" />
+    <route path="/reservations/edit" controller="ReservationController" action="updateReservation" method="POST" />
+    <route path="/reservations/delete" controller="ReservationController" action="deleteReservation" method="GET" />
+</routes>
