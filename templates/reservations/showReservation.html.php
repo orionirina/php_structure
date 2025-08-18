@@ -8,7 +8,7 @@
 <html lang="fr">
     
     <?php 
-        include "blocks/header.html.php";
+        require_once "templates/blocks/header.html.php";
     ?>
     <body>
         <!-- Header -->
@@ -19,7 +19,7 @@
 
         <!-- Navigation -->
         <?php
-            include "blocks/navbar.html.php";
+            require_once "templates/blocks/navbar.html.php";
         ?>  
 
         <!-- Main Content with Sidebar -->
@@ -27,21 +27,19 @@
             <div class="row">
                 <!-- Sidebar -->
                 <?php
-                  include "blocks/sidebar.html.php";
+                  require_once "templates/blocks/sidebar.html.php";
                 ?>  
                 <!-- Main Content -->
+            
                 <div class="col-md-9">
-                    <div class="main-content">
-                        <h2>Accueil</h2>
-                        <p>Bienvenue sur notre plateforme de location de voitures. Réservez votre véhicule dès maintenant !</p>
-                        <a href="/reservation" class="btn btn-primary">Faire une réservation</a>
-                    </div>
-                </div>
+                    <h2>Réservation</h2>
+                    </div>        
             </div>
         </div>
 
         <?php
-         include "blocks/footer.html.php";
+         require_once "templates/blocks/footer.html.php";
         ?>
     </body>
 </html>
+

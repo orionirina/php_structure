@@ -27,17 +27,19 @@ class PdoService {
         if (!file_exists($xmlFile)) {
             throw new Exception("Erreur : Le fichier de configuration '$xmlFile' n'existe pas.");
         }
+        
 
         $config = simplexml_load_file($xmlFile);
+
         $connection = $config->connection;
 
-        $host = (string)$connection->host;
+        $host = (string)$connection['host'];
         $port = (string)$connection->port;
         $dbname = (string)$connection->dbname;
         $username = (string)$connection->username;
         $password = (string)$connection->password;
         $charset = (string)$connection->charset;
-
+        
         $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
 
         try {

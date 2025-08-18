@@ -1,0 +1,184 @@
+<?php
+    require_once 'includes/HttpRequest.php';
+    require_once 'includes/HttpResponse.php';
+    require_once 'src/services/PdoService.php';
+
+    class ReservationController {
+        public function showReservationForm(HttpRequest $request, HttpResponse $response) {
+            $response->setData('pageTitle', 'Réservation')
+                     ->render('templates/reservation/createReservation.html.php');
+        }
+        
+        public function createReservation(HttpRequest $request, HttpResponse $response) {
+            $pdoService = new PdoService();
+            $pdo = $pdoService->getPdo();
+
+            if ($request->isMethod('POST')) {
+                $name = $request->getPost('name','');
+                $contact = $request->getPost('contact','');
+                $date_start = $request->getPost('date_start','');
+                $date_end = $request->getPost('date_end','');
+
+                $req = $pdo->prepare("INSERT INTO reservations (name, contact, date_start, date_end) VALUES (:name, :contact, :date_start, :date_end)");
+                $req->execute([
+                    ':name' => $name,
+                    ':contact' => $contact,
+                    ':date_start' => $date_start,
+                    ':date_end' => $date_end
+                ]);
+                
+                    $response->redirect('/');
+                
+            } else{
+                $response->setData('pageTitle', 'Erreur')
+                         ->setData('errorMessage', 'Methode non autorisée')
+                         ->render('templates/error.html.php');
+            }
+        }
+        
+        public function listReservations(HttpRequest $request, HttpResponse $response) {
+            $pdoService = new PdoService();
+            $pdo = $pdoService->getPdo();
+        
+            // Récupérer toutes les réservations (juste les colonnes utiles)
+            $req = $pdo->prepare("SELECT name, contact, date_start, date_end, id FROM reservations");
+            $req->execute([]);
+            $reservations = $req->fetchAll(PDO::FETCH_ASSOC);
+            $req->closeCursor();
+        
+            // Récupérer une réservation spécifique si id est passé en GET
+            $data = null;
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                $req = $pdo->prepare("SELECT name, contact, date_start, date_end, id FROM reservations WHERE id = :id");
+                $req->execute(['id' => $id]);
+                $data = $req->fetch(PDO::FETCH_ASSOC);
+                $req->closeCursor();    
+            }
+        
+            // Passer les données à la vue
+            $response->setData('pageTitle', 'Liste des Réservations')
+                     ->setData('reservations', $reservations)
+                     ->setData('reservation', $data) // si une seule réservation est demandée
+                     ->render('templates/reservations/listReservations.html.php');
+        }
+
+        public function showReservation(HttpRequest $request, HttpResponse $response) {
+            $response->setData('pageTitle', 'Liste des Réservations')
+            ->render('templates/reservations/showReservation.html.php');
+        }
+
+        public function editReservationForm(HttpRequest $request, HttpResponse $response) {
+                $pdoService = new PdoService();
+                $pdo = $pdoService->getPdo();
+            
+                if (!isset($_GET['id'])) {
+                    die("Aucun ID fourni !");
+                }
+            
+                $id = (int) $_GET['id'];
+            
+                $req = $pdo->prepare("SELECT id, name, contact, date_start, date_end FROM reservations WHERE id = ?");
+                $req->execute([$id]);
+                $reservation = $req->fetch(PDO::FETCH_ASSOC);
+                $req->closeCursor();
+            
+                if (!$reservation) {
+                    die("Réservation introuvable !");
+                }
+            
+                // Action du formulaire → POST sur la même route
+                $roote = "/reservations/edit?id=" . $reservation['id'];
+            
+                $response->setData('pageTitle', 'Modifier Réservation')
+                         ->setData('reservation', $reservation)
+                         ->setData('roote', $roote)
+                         ->render('templates/reservations/editReservation.html.php');
+        }
+
+        public function updateReservation($request, $response) {
+            $pdoService = new PdoService();
+            $pdo = $pdoService->getPdo();
+        
+            if (!isset($_GET['id'])) {
+                die("Aucun ID fourni !");
+            }
+            $id = (int) $_GET['id'];
+        
+            // Vérifier que le formulaire est soumis en POST
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $name       = $_POST['name'] ?? null;
+                $contact    = $_POST['contact'] ?? null;
+                $date_start = $_POST['date_start'] ?? null;
+                $date_end   = $_POST['date_end'] ?? null;
+        
+                if (!$name || !$contact || !$date_start || !$date_end) {
+                    die("Tous les champs sont obligatoires !");
+                }
+        
+                if (strtotime($date_end) <= strtotime($date_start)) {
+                    die("La date de fin doit être supérieure à la date de début !");
+                }
+        
+                // Vérifier que la réservation existe
+                $req = $pdo->prepare("SELECT id FROM reservations WHERE id = ?");
+                $req->execute([$id]);
+                $reservation = $req->fetch(PDO::FETCH_ASSOC);
+                $req->closeCursor();
+        
+                if (!$reservation) {
+                    die("Réservation introuvable !");
+                }
+        
+                // Mise à jour
+                $requete = $pdo->prepare("
+                    UPDATE reservations 
+                    SET name = :name, contact = :contact, date_start = :date_start, date_end = :date_end 
+                    WHERE id = :id
+                ");
+                $requete->execute([
+                    "name"       => $name,
+                    "contact"    => $contact,
+                    "date_start" => $date_start,
+                    "date_end"   => $date_end,
+                    "id"         => $id
+                ]);
+        
+                // Redirection vers la liste après update
+                header("Location: /reservations");
+                exit;
+            }
+        }
+
+        public function deleteReservation(HttpRequest $request, HttpResponse $response) {
+            $pdoService = new PdoService();
+            $pdo = $pdoService->getPdo();
+            
+            if (isset($_GET['id'])) {
+                $id = (int) $_GET['id'];
+            
+                // Vérifier que la réservation existe
+                $req = $pdo->prepare("SELECT id FROM reservations WHERE id = ?");
+                $req->execute([$id]);
+                $reservation = $req->fetch(PDO::FETCH_ASSOC);
+                $req->closeCursor();
+            
+                if (!$reservation) {
+                    die("Réservation introuvable !");
+                }
+            
+                // Suppression
+                $requete = $pdo->prepare("DELETE FROM reservations WHERE id = :id");
+                $requete->execute(["id" => $id]);
+            
+                // Redirection vers la liste
+                header("Location: /reservations");
+                exit;
+            } else {
+                echo "<h3>Serveur indisponible, quelqu'un a essayé depuis l'URL</h3>";
+            }
+            
+        }            
+    }
+    
+?>
