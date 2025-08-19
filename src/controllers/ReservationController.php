@@ -12,9 +12,11 @@
             $this->pdo = $pdoService->getPdo();
         }
         
-        public function showReservationForm(HttpRequest $request, HttpResponse $response) {
+        public function newReservation(HttpRequest $request, HttpResponse $response) {
+            $reservation = null;
             $response->setData('pageTitle', 'Réservation')
-                     ->render('templates/reservation/createReservation.html.php');
+                     ->setData('reservation', $reservation)
+                     ->render('templates/reservation/newReservationForm.html.php');
         }
         
         public function createReservation(HttpRequest $request, HttpResponse $response) {
@@ -23,16 +25,21 @@
                 $contact = $request->getPost('contact','');
                 $date_start = $request->getPost('date_start','');
                 $date_end = $request->getPost('date_end','');
+                $type_car = $request->getPost('type_car','');
 
-                $req = $this->pdo->prepare("INSERT INTO reservations (name, contact, date_start, date_end) VALUES (:name, :contact, :date_start, :date_end)");
+                // var_dump($name, $contact, $date_start, $date_end, $type_car);die;
+
+                $req = $this->pdo->prepare("INSERT INTO reservations (name, contact, date_start, date_end, type_car, status) VALUES (:name, :contact, :date_start, :date_end, :type_car, :status)");
                 $req->execute([
                     ':name' => $name,
                     ':contact' => $contact,
                     ':date_start' => $date_start,
-                    ':date_end' => $date_end
+                    ':date_end' => $date_end,
+                    ':type_car' => $type_car,
+                    ':status' => 1,
                 ]);
                 
-                    $response->redirect('/');
+                $response->redirect('/');
                 
             } else{
                 $response->setData('pageTitle', 'Erreur')
