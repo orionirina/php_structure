@@ -1,5 +1,4 @@
 .env.local
-
 /.history/
 /vendor/
 /node_modules/
