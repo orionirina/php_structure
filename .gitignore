@@ -1,8 +1,8 @@
 .env.local
-
 /.history/
 /vendor/
 /node_modules/
 /var/
 /public/build
 /public/images
+/config/database.xml
