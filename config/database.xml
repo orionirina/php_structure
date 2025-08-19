@@ -5,7 +5,7 @@
         <port>3306</port>
         <dbname>car_rent_db</dbname>
         <username>root</username>
-        <password>tiantsoa</password>
+        <password>tiantsoa</password> 
         <charset>utf8mb4</charset>
     </connection>
 </database>
