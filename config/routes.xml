@@ -8,9 +8,10 @@
     <route path="/reservation/create" controller="ReservationController" action="createAction" method="POST" />
     
     <route path="/reservation/list" controller="ReservationController" action="listAction" method="GET" />
+    <route path="/reservation/view" controller="ReservationController" action="showAction" method="GET" />
+    
+    <route path="/reservation/edit" controller="ReservationController" action="editAction" method="GET" />
+    <route path="/reservation/update" controller="ReservationController" action="updateAction" method="POST" />
 
-    <route path="/reservations/view" controller="ReservationController" action="showAction" method="GET" />
-    <route path="/reservations/edit" controller="ReservationController" action="editReservationForm" method="GET" />
-    <route path="/reservations/edit" controller="ReservationController" action="updateReservation" method="POST" />
-    <route path="/reservations/delete" controller="ReservationController" action="deleteReservation" method="GET" />
+    <route path="/reservation/delete" controller="ReservationController" action="deleteAction" method="GET" />
 </routes>

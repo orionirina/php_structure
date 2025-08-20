@@ -47,37 +47,8 @@
                          ->render('templates/error.html.php');
             }
         }
-        
-        public function listAction(HttpRequest $request, HttpResponse $response) {
-            // Récupérer toutes les réservations (juste les colonnes utiles)
-            $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end, id FROM reservations");
-            $req->execute([]);
-            $reservations = $req->fetchAll(PDO::FETCH_ASSOC);
-            $req->closeCursor();
-        
-            // Récupérer une réservation spécifique si id est passé en GET
-            $data = null;
-            if (isset($_GET['id'])) {
-                $id = $_GET['id'];
-                $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end, id FROM reservations WHERE id = :id");
-                $req->execute(['id' => $id]);
-                $data = $req->fetch(PDO::FETCH_ASSOC);
-                $req->closeCursor();    
-            }
-        
-            // Passer les données à la vue
-            $response->setData('pageTitle', 'Liste des Réservations')
-                     ->setData('reservations', $reservations)
-                     ->setData('reservation', $data) // si une seule réservation est demandée
-                     ->render('templates/reservation/list.html.php');
-        }
 
-        public function showAction(HttpRequest $request, HttpResponse $response) {
-            $response->setData('pageTitle', 'Détails de la réservation')
-                    ->render('templates/reservation/show.html.php');
-        }
-
-        public function editReservationForm(HttpRequest $request, HttpResponse $response) {          
+        public function editAction(HttpRequest $request, HttpResponse $response) {          
                 if (!isset($_GET['id'])) {
                     die("Aucun ID fourni !");
                 }
@@ -94,18 +65,19 @@
                 }
             
                 // Action du formulaire → POST sur la même route
-                $roote = "/reservations/edit?id=" . $reservation['id'];
+                $roote = "/reservation/update?id=" . $reservation['id'];
             
                 $response->setData('pageTitle', 'Modifier Réservation')
                          ->setData('reservation', $reservation)
                          ->setData('roote', $roote)
-                         ->render('templates/reservations/editReservation.html.php');
+                         ->render('templates/reservation/edit.html.php');
         }
 
-        public function updateReservation($request, $response) {
+        public function updateAction($request, $response) {
             if (!isset($_GET['id'])) {
                 die("Aucun ID fourni !");
             }
+
             $id = (int) $_GET['id'];
         
             // Vérifier que le formulaire est soumis en POST
@@ -139,6 +111,7 @@
                     SET name = :name, contact = :contact, date_start = :date_start, date_end = :date_end 
                     WHERE id = :id
                 ");
+
                 $requete->execute([
                     "name"       => $name,
                     "contact"    => $contact,
@@ -153,7 +126,7 @@
             }
         }
 
-        public function deleteReservation(HttpRequest $request, HttpResponse $response) {            
+        public function deleteAction(HttpRequest $request, HttpResponse $response) {            
             if (isset($_GET['id'])) {
                 $id = (int) $_GET['id'];
             
@@ -177,8 +150,36 @@
             } else {
                 echo "<h3>Serveur indisponible, quelqu'un a essayé depuis l'URL</h3>";
             }
-            
-        }            
+        }   
+        
+         public function listAction(HttpRequest $request, HttpResponse $response) {
+            // Récupérer toutes les réservations (juste les colonnes utiles)
+            $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end, id FROM reservations");
+            $req->execute([]);
+            $reservations = $req->fetchAll(PDO::FETCH_ASSOC);
+            $req->closeCursor();
+        
+            // Récupérer une réservation spécifique si id est passé en GET
+            $data = null;
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end, id FROM reservations WHERE id = :id");
+                $req->execute(['id' => $id]);
+                $data = $req->fetch(PDO::FETCH_ASSOC);
+                $req->closeCursor();    
+            }
+        
+            // Passer les données à la vue
+            $response->setData('pageTitle', 'Liste des Réservations')
+                     ->setData('reservations', $reservations)
+                     ->setData('reservation', $data) // si une seule réservation est demandée
+                     ->render('templates/reservation/list.html.php');
+        }
+
+        public function showAction(HttpRequest $request, HttpResponse $response) {
+            $response->setData('pageTitle', 'Détails de la réservation')
+                    ->render('templates/reservation/show.html.php');
+        }
     }
     
 ?>

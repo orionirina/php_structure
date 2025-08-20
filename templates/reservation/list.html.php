@@ -48,9 +48,9 @@
                 <tbody>
                 <?php foreach ($reservations as $reservation): ?>
                     <?php  
-                        $roote_show = "/reservations/view?id=" . $reservation['id'];
-                        $roote_edit = "/reservations/edit?id=" . $reservation['id'];
-                        $roote_delete = "/reservations/delete?id=" . $reservation['id'];
+                        $roote_show = "/reservation/view?id=" . $reservation['id'];
+                        $roote_edit = "/reservation/edit?id=" . $reservation['id'];
+                        $roote_delete = "/reservation/delete?id=" . $reservation['id'];
                     ?>
                     <tr>
                         <td><?= htmlspecialchars($reservation['name']); ?></td>
