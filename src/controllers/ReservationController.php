@@ -69,12 +69,12 @@
             $response->setData('pageTitle', 'Liste des Réservations')
                      ->setData('reservations', $reservations)
                      ->setData('reservation', $data) // si une seule réservation est demandée
-                     ->render('templates/reservations/listReservations.html.php');
+                     ->render('templates/reservation/list.html.php');
         }
 
-        public function showReservation(HttpRequest $request, HttpResponse $response) {
-            $response->setData('pageTitle', 'Liste des Réservations')
-            ->render('templates/reservations/showReservation.html.php');
+        public function showAction(HttpRequest $request, HttpResponse $response) {
+            $response->setData('pageTitle', 'Détails de la réservation')
+                    ->render('templates/reservation/show.html.php');
         }
 
         public function editReservationForm(HttpRequest $request, HttpResponse $response) {          
