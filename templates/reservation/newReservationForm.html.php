@@ -33,7 +33,7 @@
                 
                 <!-- Main Content -->
                 <div class="col-md-9">
-                    <h1 style="margin-left:200px">NOUVELLE RÉSERVATION</h1>
+                    <h1 style="mS-4">NOUVELLE RÉSERVATION</h1>
                     <div class="container-fluid">
                         <form action="../reservation" method="POST">
                             <div class="form-group">
@@ -42,16 +42,17 @@
                             </div>
 
                             <div class="row">
-                                <div class="form-group  col-6">
+                                <div class="form-group col-6">
                                     <label for="type_car">Type de voiture</label>
                                     <select class="form-control" id="type_car" name="type_car" placeholder="Sélectionnez un type de voiture" required>
                                         <option value="<?= Constant::CATEGORY_MINIBUS ?>">Minibus</option>
-                                        <option value="<?= Constant::CATEGORY_PLAISIR ?>">Plaisir</option>
                                         <option value="<?= Constant::CATEGORY_CAMION ?>">Camion</option>
+                                        <option value="<?= Constant::CATEGORY_PLAISIR ?>">Plaisir</option>
+                                        <option value="<?= Constant::CATEGORY_MOTO ?>">Moto</option>
                                     </select>
                                 </div>
                                 
-                                <div class="form-group  col-6">
+                                <div class="form-group col-6">
                                     <label for="contact">Contact</label>
                                     <input type="text" class="form-control" id="contact" name="contact" placeholder="Entrez votre contact (email ou téléphone)" required>
                                 </div>
@@ -61,7 +62,7 @@
                                     <label for="date_start">Date de début</label>
                                     <input type="date" class="form-control" id="date_start" name="date_start" required>
                                 </div>
-                                <div class="form-group  col-6">
+                                <div class="form-group col-6">
                                     <label for="date_end">Date de fin</label>
                                     <input type="date" class="form-control" id="date_end" name="date_end" required>
                                 </div>

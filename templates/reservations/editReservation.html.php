@@ -2,6 +2,8 @@
     if (!defined('APP_ACCESS')) {
         define('APP_ACCESS', true);
     }
+    require_once "src/models/Constant.php";
+    
 ?>
 
 <!DOCTYPE html>
@@ -27,52 +29,54 @@
             <div class="row">
                 <!-- Sidebar -->
                 <?php
-                  require_once "templates/blocks/sidebar.html.php";
+                require_once "templates/blocks/sidebar.html.php";
                 ?>  
+                
                 <!-- Main Content -->
-            
                 <div class="col-md-9">
-                   
-                <div class="col-md-9">
-                    <h1 style="margin-left:200px">EDIT RESERVATION</h1>
-                        <div>
-                        <form action="<?php echo $roote ?>" method="POST" style="max-width:600px; margin:auto; padding:20px; border:1px solid #ccc; border-radius:10px; background-color:#f8f9fa;">
-                            <input type="text" name="name" value="<?php echo htmlspecialchars($reservation['name']); ?>" placeholder="Nom" style="width:500px; margin-top:30px; margin-bottom:30px; padding:5px;" required> 
-                            <br>
-                            <input type="text" name="contact" value="<?php echo htmlspecialchars($reservation['contact']); ?>" placeholder="Contact" style="width:500px; margin-bottom:30px; padding:5px;" required>
-                            <br>
-
-                            <div class="DHdebut">
-                                <div style="margin-bottom:10px;">
-                                    <p>Période de location :</p>
+                    <h1 style="ms-4">MODIFICATION DE LA  RÉSERVATION</h1>
+                        <div class="container-fluid">
+                            <form action="<?= $roote ?>" method="POST">
+                                <div class="form-group">
+                                    <label for="nom">Nom</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="<?= $reservation['name'];?>" placeholder="Entrez votre nom" required>
                                 </div>
-                                <div style="display:flex; gap:20px;">
-                                    <div>
-                                        <p>Date Début</p>
-                                        <input type="datetime-local" name="date_start" value="<?php echo date('Y-m-d\TH:i', strtotime($reservation['date_start'])); ?>" style="width:171px; height:30px;" required>
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="type_car">Type de voiture</label>
+                                        <select class="form-control" id="type_car" name="type_car" placeholder="Sélectionnez un type de voiture" required>
+                                            <option value="<?php if($reservation['type_car'] == Constant::CATEGORY_MINIBUS) ?>" selected >Minibus</option>
+                                            <option value="<?php if($reservation['type_car'] == Constant::CATEGORY_CAMION) ?>" selected>Plaisir</option>
+                                            <option value="<?php if($reservation['type_car'] == Constant::CATEGORY_PLAISIR)  ?>" selected>Minibus</option>
+                                            <option value="<?php if($reservation['type_car'] == Constant::CATEGORY_MOTO)  ?>" selected>Moto</option>
+                                        </select>
                                     </div>
-                                    <div>
-                                        <p>Date Fin</p>
-                                        <input type="datetime-local" name="date_end" value="<?php echo date('Y-m-d\TH:i', strtotime($reservation['date_end'])); ?>" style="width:171px; height:30px;" required>
+                                    
+                                    <div class="form-group col-6">
+                                        <label for="contact">Contact</label>
+                                        <input type="text" class="form-control" id="contact" name="contact" value="<?= $reservation['contact'];?>" placeholder="Entrez votre contact (email ou téléphone)" required>
                                     </div>
                                 </div>
-                            </div>
 
-                            <button type="submit" class="btn btn-primary btn-block" style="margin-top:30px;">Modifier</button>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="date_start">Date de début</label>
+                                        <input type="date" class="form-control" id="date_start" name="date_start"  value="<?= date('Y-m-d', strtotime($reservation['date_start'])); ?>" required>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="date_end">Date de fin</label>
+                                        <input type="date" class="form-control" id="date_end" name="date_end" value="<?= date('Y-m-d', strtotime($reservation['date_start'])); ?>" required>
+                                    </div>
+                                </div>
 
-                        </form>
-
-                <?php if (!empty($message)) echo "<p style='color:green;margin-top:15px;'>$message</p>"; ?>
-
-
-            
-
-
+                                <button type="submit" class="btn btn-primary btn-block">Réserver</button>
+                            </form>
                         </div>
                 </div>
-                </div>        
             </div>
         </div>
+
 
         <?php
          require_once "templates/blocks/footer.html.php";

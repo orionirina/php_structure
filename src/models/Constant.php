@@ -18,3 +18,4 @@ class Constant {
         self::TYPE_MAZDA => "Mazda Eclipse",
     ];
 }
+?>
