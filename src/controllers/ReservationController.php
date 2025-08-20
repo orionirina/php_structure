@@ -39,7 +39,10 @@
                     ':status' => 1,
                 ]);
                 
-                $response->redirect('/');
+                // $response->redirect('/');
+                $response->setData('pageTitle', 'Accueil')
+                    ->setData('message', "Ajout de reservation de $name")
+                    ->render('templates/index.html.php');
                 
             } else{
                 $response->setData('pageTitle', 'Erreur')

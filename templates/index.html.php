@@ -34,6 +34,11 @@
                     <div class="main-content">
                         <h2>Accueil</h2>
                         <p>Bienvenue sur notre plateforme de location de voitures. Réservez votre véhicule dès maintenant !</p>
+                        <?php 
+                            if (isset($message)) { 
+                                echo '<p class="text-success">' . $message . '</p>';
+                            } 
+                        ?>  
                         <a href="/reservation/new" class="btn btn-primary">Faire une réservation</a>
                     </div>
                 </div>
