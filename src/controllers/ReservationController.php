@@ -121,8 +121,8 @@
                 ]);
         
                 // Redirection vers la liste après update
-                header("Location: /reservations");
-                exit;
+                $response->redirect('/');
+
             }
         }
 
@@ -145,8 +145,8 @@
                 $requete->execute(["id" => $id]);
             
                 // Redirection vers la liste
-                header("Location: /reservations");
-                exit;
+                $response->redirect('/');
+
             } else {
                 echo "<h3>Serveur indisponible, quelqu'un a essayé depuis l'URL</h3>";
             }
