@@ -46,10 +46,22 @@
                                     <div class="form-group col-6">
                                         <label for="type_car">Type de voiture</label>
                                         <select class="form-control" id="type_car" name="type_car" placeholder="Sélectionnez un type de voiture" required>
-                                            <option value="<?php if($reservation['type_car'] == Constant::CATEGORY_MINIBUS) ?>" selected >Minibus</option>
-                                            <option value="<?php if($reservation['type_car'] == Constant::CATEGORY_CAMION) ?>" selected>Plaisir</option>
-                                            <option value="<?php if($reservation['type_car'] == Constant::CATEGORY_PLAISIR)  ?>" selected>Minibus</option>
-                                            <option value="<?php if($reservation['type_car'] == Constant::CATEGORY_MOTO)  ?>" selected>Moto</option>
+                                            <option 
+                                                <?php if( $reservation['type_car'] == Constant::CATEGORY_MINIBUS): ?> selected <?php endif ?>
+                                                value="<?= Constant::CATEGORY_MINIBUS ?>"> Minibus
+                                            </option>
+                                            <option 
+                                                <?php if( $reservation['type_car'] == Constant::CATEGORY_CAMION): ?> selected <?php endif ?>
+                                                value="<?= Constant::CATEGORY_CAMION ?>"> Camion
+                                            </option>
+                                            <option 
+                                                <?php if( $reservation['type_car'] == Constant::CATEGORY_PLAISIR): ?> selected <?php endif ?>
+                                                value="<?= Constant::CATEGORY_PLAISIR ?>"> Plaisir
+                                            </option>
+                                            <option 
+                                                <?php if( $reservation['type_car'] == Constant::CATEGORY_MOTO): ?> selected <?php endif ?>
+                                                value="<?= Constant::CATEGORY_MOTO ?>"> Moto
+                                            </option>
                                         </select>
                                     </div>
                                     
@@ -66,7 +78,7 @@
                                     </div>
                                     <div class="form-group col-6">
                                         <label for="date_end">Date de fin</label>
-                                        <input type="date" class="form-control" id="date_end" name="date_end" value="<?= date('Y-m-d', strtotime($reservation['date_start'])); ?>" required>
+                                        <input type="date" class="form-control" id="date_end" name="date_end" value="<?= date('Y-m-d', strtotime($reservation['date_end'])); ?>" required>
                                     </div>
                                 </div>
 

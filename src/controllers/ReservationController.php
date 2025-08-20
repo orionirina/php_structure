@@ -84,7 +84,7 @@
             
                 $id = (int) $_GET['id'];
             
-                $req = $this->pdo->prepare("SELECT id, name, contact, date_start, date_end FROM reservations WHERE id = ?");
+                $req = $this->pdo->prepare("SELECT * FROM reservations WHERE id = ?");
                 $req->execute([$id]);
                 $reservation = $req->fetch(PDO::FETCH_ASSOC);
                 $req->closeCursor();
