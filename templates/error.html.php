@@ -70,10 +70,10 @@
                         <a class="nav-link" href="/login">Connexion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/reservation">Réservation</a>
+                        <a class="nav-link" href="/reservation/new">Nouvelle réservation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/reservations">Liste des Réservations</a>
+                        <a class="nav-link" href="/reservation/list">Liste des Réservations</a>
                     </li>
                 </ul>
             </div>

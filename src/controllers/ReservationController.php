@@ -12,14 +12,14 @@
             $this->pdo = $pdoService->getPdo();
         }
         
-        public function newReservation(HttpRequest $request, HttpResponse $response) {
+        public function newAction(HttpRequest $request, HttpResponse $response) {
             $reservation = null;
             $response->setData('pageTitle', 'Réservation')
                      ->setData('reservation', $reservation)
-                     ->render('templates/reservation/newReservationForm.html.php');
+                     ->render('templates/reservation/new.html.php');
         }
         
-        public function createReservation(HttpRequest $request, HttpResponse $response) {
+        public function createAction(HttpRequest $request, HttpResponse $response) {
             if ($request->isMethod('POST')) {
                 $name = $request->getPost('name','');
                 $contact = $request->getPost('contact','');
@@ -48,7 +48,7 @@
             }
         }
         
-        public function listReservations(HttpRequest $request, HttpResponse $response) {
+        public function listAction(HttpRequest $request, HttpResponse $response) {
             // Récupérer toutes les réservations (juste les colonnes utiles)
             $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end, id FROM reservations");
             $req->execute([]);

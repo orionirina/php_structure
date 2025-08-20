@@ -21,7 +21,7 @@
                 <a class="nav-link" href="/login">Connexion</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/reservation">Réservation</a>
+                <a class="nav-link" href="/reservation/new">Réservation</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/reservations">Liste des Réservations</a>

@@ -4,10 +4,11 @@
     <route path="/login" controller="LoginController" action="showLogin" method="GET" />
     <route path="/login" controller="LoginController" action="handleLogin" method="POST" />
     
-    <route path="/reservation" controller="ReservationController" action="newReservation" method="GET" />
-    <route path="/reservation" controller="ReservationController" action="createReservation" method="POST" />
+    <route path="/reservation/new" controller="ReservationController" action="newAction" method="GET" />
+    <route path="/reservation/create" controller="ReservationController" action="createAction" method="POST" />
     
-    <route path="/reservations" controller="ReservationController" action="listReservations" method="GET" />
+    <route path="/reservation/list" controller="ReservationController" action="listAction" method="GET" />
+
     <route path="/reservations/view" controller="ReservationController" action="showReservation" method="GET" />
     <route path="/reservations/edit" controller="ReservationController" action="editReservationForm" method="GET" />
     <route path="/reservations/edit" controller="ReservationController" action="updateReservation" method="POST" />
