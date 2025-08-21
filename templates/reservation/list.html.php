@@ -42,6 +42,7 @@
                             <th>Contact</th>
                             <th>Début</th>
                             <th>Fin</th>
+                            <th>Type du voiture</th>
                             <th>Prix</th>
                         </tr>
                     </thead>
@@ -57,6 +58,7 @@
                         <td><?= htmlspecialchars($reservation['contact']); ?></td>
                         <td><?= htmlspecialchars($reservation['date_start']); ?></td>
                         <td><?= htmlspecialchars($reservation['date_end']); ?></td>
+                        <td><?= htmlspecialchars($reservation['type_car']); ?></td>
 
                         <td>
                             <span class="col-2 mx-2">

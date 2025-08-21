@@ -53,7 +53,9 @@
 
         public function editAction(HttpRequest $request, HttpResponse $response) {          
                 if (!isset($_GET['id'])) {
-                    die("Aucun ID fourni !");
+                    $response->setData('pageTitle', 'Accueil')
+                        ->setData('message', "Aucun ID fourni")
+                        ->render('templates/index.html.php');
                 }
             
                 $id = (int) $_GET['id'];
@@ -64,7 +66,9 @@
                 $req->closeCursor();
             
                 if (!$reservation) {
-                    die("Réservation introuvable !");
+                    $response->setData('pageTitle', 'Accueil')
+                        ->setData('message', "Réservation introuvable !")
+                        ->render('templates/index.html.php');
                 }
             
                 // Action du formulaire → POST sur la même route
@@ -78,7 +82,9 @@
 
         public function updateAction($request, $response) {
             if (!isset($_GET['id'])) {
-                die("Aucun ID fourni !");
+                $response->setData('pageTitle', 'Accueil')
+                        ->setData('message', "Aucun ID fourni !")
+                        ->render('templates/index.html.php');
             }
 
             $id = (int) $_GET['id'];
@@ -89,13 +95,19 @@
                 $contact    = $_POST['contact'] ?? null;
                 $date_start = $_POST['date_start'] ?? null;
                 $date_end   = $_POST['date_end'] ?? null;
+                $type_car   = $_POST['type_car'] ?? null;
+
         
-                if (!$name || !$contact || !$date_start || !$date_end) {
-                    die("Tous les champs sont obligatoires !");
+                if (!$name || !$contact || !$date_start || !$date_end || !$type_car) {
+                    $response->setData('pageTitle', 'Accueil')
+                            ->setData('message', "Tous les champs sont obligatoires")
+                            ->render('templates/index.html.php');
                 }
         
                 if (strtotime($date_end) <= strtotime($date_start)) {
-                    die("La date de fin doit être supérieure à la date de début !");
+                    $response->setData('pageTitle', 'Accueil')
+                            ->setData('message', "La date de fin doit être supérieure à la date de début !")
+                            ->render('templates/index.html.php');
                 }
         
                 // Vérifier que la réservation existe
@@ -105,13 +117,14 @@
                 $req->closeCursor();
         
                 if (!$reservation) {
-                    die("Réservation introuvable !");
+                    $response->setData('pageTitle', 'Accueil')
+                            ->setData('message', "Réservation introuvable !")
+                            ->render('templates/index.html.php');
                 }
         
                 // Mise à jour
-                $requete = $this->pdo->prepare("
-                    UPDATE reservations 
-                    SET name = :name, contact = :contact, date_start = :date_start, date_end = :date_end 
+                $requete = $this->pdo->prepare("UPDATE reservations 
+                    SET name = :name, contact = :contact, date_start = :date_start, date_end = :date_end, type_car = :type_car 
                     WHERE id = :id
                 ");
 
@@ -120,11 +133,14 @@
                     "contact"    => $contact,
                     "date_start" => $date_start,
                     "date_end"   => $date_end,
+                    "type_car"   => $type_car, 
                     "id"         => $id
                 ]);
         
                 // Redirection vers la liste après update
-                $response->redirect('/');
+                $response->setData('pageTitle', 'Accueil')
+                        ->setData('message', "Modification de la réservation de $name")
+                        ->render('templates/index.html.php');
 
             }
         }
@@ -134,13 +150,15 @@
                 $id = (int) $_GET['id'];
             
                 // Vérifier que la réservation existe
-                $req = $this->pdo->prepare("SELECT id FROM reservations WHERE id = ?");
+                $req = $this->pdo->prepare("SELECT name,id FROM reservations WHERE id = ?");
                 $req->execute([$id]);
                 $reservation = $req->fetch(PDO::FETCH_ASSOC);
                 $req->closeCursor();
             
                 if (!$reservation) {
-                    die("Réservation introuvable !");
+                    $response->setData('pageTitle', 'Accueil')
+                    ->setData('message', "Réservation introuvable !")
+                    ->render('templates/index.html.php');
                 }
             
                 // Suppression
@@ -148,7 +166,11 @@
                 $requete->execute(["id" => $id]);
             
                 // Redirection vers la liste
-                $response->redirect('/');
+                $name = $reservation['name'];
+                $response->setData('pageTitle', 'Accueil')
+                        ->setData('message', "Suppresion  de la réservation de $name ")
+                        ->render('templates/index.html.php');
+
 
             } else {
                 echo "<h3>Serveur indisponible, quelqu'un a essayé depuis l'URL</h3>";
@@ -157,7 +179,7 @@
         
          public function listAction(HttpRequest $request, HttpResponse $response) {
             // Récupérer toutes les réservations (juste les colonnes utiles)
-            $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end, id FROM reservations");
+            $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end,type_car, id FROM reservations");
             $req->execute([]);
             $reservations = $req->fetchAll(PDO::FETCH_ASSOC);
             $req->closeCursor();
@@ -166,7 +188,7 @@
             $data = null;
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
-                $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end, id FROM reservations WHERE id = :id");
+                $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end,type_car, id FROM reservations WHERE id = :id");
                 $req->execute(['id' => $id]);
                 $data = $req->fetch(PDO::FETCH_ASSOC);
                 $req->closeCursor();    
