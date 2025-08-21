@@ -44,22 +44,22 @@
 
                                 <div class="row">
                                     <div class="form-group col-6">
-                                        <label for="type_car">Type de voiture</label>
-                                        <select class="form-control" id="type_car" name="type_car" placeholder="Sélectionnez un type de voiture" required>
+                                        <label for="id_car">Type de voiture</label>
+                                        <select class="form-control" id="id_car" name="id_car" placeholder="Sélectionnez un type de voiture" required>
                                             <option 
-                                                <?php if( $reservation['type_car'] == Constant::CATEGORY_MINIBUS): ?> selected <?php endif ?>
+                                                <?php if( $reservation['id_car'] == Constant::CATEGORY_MINIBUS): ?> selected <?php endif ?>
                                                 value="<?= Constant::CATEGORY_MINIBUS ?>"> Minibus
                                             </option>
                                             <option 
-                                                <?php if( $reservation['type_car'] == Constant::CATEGORY_CAMION): ?> selected <?php endif ?>
+                                                <?php if( $reservation['id_car'] == Constant::CATEGORY_CAMION): ?> selected <?php endif ?>
                                                 value="<?= Constant::CATEGORY_CAMION ?>"> Camion
                                             </option>
                                             <option 
-                                                <?php if( $reservation['type_car'] == Constant::CATEGORY_PLAISIR): ?> selected <?php endif ?>
+                                                <?php if( $reservation['id_car'] == Constant::CATEGORY_PLAISIR): ?> selected <?php endif ?>
                                                 value="<?= Constant::CATEGORY_PLAISIR ?>"> Plaisir
                                             </option>
                                             <option 
-                                                <?php if( $reservation['type_car'] == Constant::CATEGORY_MOTO): ?> selected <?php endif ?>
+                                                <?php if( $reservation['id_car'] == Constant::CATEGORY_MOTO): ?> selected <?php endif ?>
                                                 value="<?= Constant::CATEGORY_MOTO ?>"> Moto
                                             </option>
                                         </select>

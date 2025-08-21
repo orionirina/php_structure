@@ -25,17 +25,17 @@
                 $contact = $request->getPost('contact','');
                 $date_start = $request->getPost('date_start','');
                 $date_end = $request->getPost('date_end','');
-                $type_car = $request->getPost('type_car','');
+                $id_car = $request->getPost('id_car','');
 
                 // var_dump($name, $contact, $date_start, $date_end, $type_car);die;
 
-                $req = $this->pdo->prepare("INSERT INTO reservations (name, contact, date_start, date_end, type_car, status) VALUES (:name, :contact, :date_start, :date_end, :type_car, :status)");
+                $req = $this->pdo->prepare("INSERT INTO reservations (name, contact, date_start, date_end, id_car, status) VALUES (:name, :contact, :date_start, :date_end, :id_car, :status)");
                 $req->execute([
                     ':name' => $name,
                     ':contact' => $contact,
                     ':date_start' => $date_start,
                     ':date_end' => $date_end,
-                    ':type_car' => $type_car,
+                    ':id_car' => $id_car,
                     ':status' => 1,
                 ]);
                 
@@ -95,10 +95,10 @@
                 $contact    = $_POST['contact'] ?? null;
                 $date_start = $_POST['date_start'] ?? null;
                 $date_end   = $_POST['date_end'] ?? null;
-                $type_car   = $_POST['type_car'] ?? null;
+                $id_car   = $_POST['id_car'] ?? null;
 
         
-                if (!$name || !$contact || !$date_start || !$date_end || !$type_car) {
+                if (!$name || !$contact || !$date_start || !$date_end || !$id_car) {
                     $response->setData('pageTitle', 'Accueil')
                             ->setData('message', "Tous les champs sont obligatoires")
                             ->render('templates/index.html.php');
@@ -124,7 +124,7 @@
         
                 // Mise à jour
                 $requete = $this->pdo->prepare("UPDATE reservations 
-                    SET name = :name, contact = :contact, date_start = :date_start, date_end = :date_end, type_car = :type_car 
+                    SET name = :name, contact = :contact, date_start = :date_start, date_end = :date_end, id_car = :id_car 
                     WHERE id = :id
                 ");
 
@@ -133,7 +133,7 @@
                     "contact"    => $contact,
                     "date_start" => $date_start,
                     "date_end"   => $date_end,
-                    "type_car"   => $type_car, 
+                    "id_car"   => $id_car, 
                     "id"         => $id
                 ]);
         
@@ -179,7 +179,7 @@
         
          public function listAction(HttpRequest $request, HttpResponse $response) {
             // Récupérer toutes les réservations (juste les colonnes utiles)
-            $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end,type_car, id FROM reservations");
+            $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end,id_car, id FROM reservations");
             $req->execute([]);
             $reservations = $req->fetchAll(PDO::FETCH_ASSOC);
             $req->closeCursor();
@@ -188,7 +188,7 @@
             $data = null;
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
-                $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end,type_car, id FROM reservations WHERE id = :id");
+                $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end,id_car, id FROM reservations WHERE id = :id");
                 $req->execute(['id' => $id]);
                 $data = $req->fetch(PDO::FETCH_ASSOC);
                 $req->closeCursor();    
