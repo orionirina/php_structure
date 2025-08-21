@@ -9,14 +9,13 @@
 <html lang="fr">
     
     <?php 
-        require_once "templates/blocks/header.html.php";
+        require_once "templates/blocks/head.html.php";
     ?>
     <body>
         <!-- Header -->
-        <header class="bg-primary text-white text-center py-4">
-            <h1>Bienvenue sur notre site</h1>
-            <p>Location de voitures simplifiée</p>
-        </header>
+        <?php 
+            require_once "templates/blocks/header.html.php";
+        ?>
 
         <!-- Navigation -->
         <?php
@@ -34,7 +33,7 @@
             
                 <div class="col-md-9">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2>Listes des Reservations</h2>
+                        <h5>Listes des Reservations</h5>
                         <a href="/reservation/new" class="btn btn-primary p-1 mr-2" title="Ajouter une reservation"><i class="fas fa-add"></i></a>
                     </div>
             
