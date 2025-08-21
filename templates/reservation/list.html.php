@@ -43,8 +43,8 @@
                             <th>Contact</th>
                             <th>Début</th>
                             <th>Fin</th>
-                            <th>Type du voiture</th>
-                            
+                            <th>Type</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                 <tbody>
@@ -63,13 +63,13 @@
 
                         <td>
                             <span class="col-4 px-0">
-                                <a href="<?= $roote_show; ?>" title="Voir"><i class="fas fa-eye"></i></a>
+                                <a class="text-secondary" href="<?= $roote_show; ?>" title="Voir"><i class="fas fa-eye"></i></a>
                             </span>
                             <span class="col-4 px-0">
-                                <a href="<?= $roote_edit; ?>"><i class="fas fa-edit" title="Modifier"></i></a>
+                                <a class="text-secondary" href="<?= $roote_edit; ?>"><i class="fas fa-edit" title="Modifier"></i></a>
                             </span>
                             <span class="col-4 px-0">
-                                <a href="<?= $roote_delete; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?');" title="Supprimer"><i class="fas fa-trash"></i></a>
+                                <a class="text-danger" href="<?= $roote_delete; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?');" title="Supprimer"><i class="fas fa-trash"></i></a>
                             </span>
                         </td>
                     </tr>
