@@ -12,10 +12,10 @@ class Constant {
     const TYPE_MAZDA = 13;
 
     public static $array_select_type_car = [
-        self::TYPE_MERCEDES => "Mercesdes 307",
-        self::TYPE_RENAULT => "Renault Clio",
-        self::TYPE_TOYOTA => "Toyota hiace",
-        self::TYPE_MAZDA => "Mazda Eclipse",
+        self::CATEGORY_MINIBUS => "Minibus",
+        self::CATEGORY_CAMION => "Camion",
+        self::CATEGORY_PLAISIR => "Plaisir",
+        self::CATEGORY_MOTO => "Moto",
     ];
 }
 ?>

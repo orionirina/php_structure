@@ -2,6 +2,7 @@
     if (!defined('APP_ACCESS')) {
         define('APP_ACCESS', true);
     }
+    require_once "src/models/Constant.php";
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +44,7 @@
                             <th>Début</th>
                             <th>Fin</th>
                             <th>Type du voiture</th>
-                            <th>Prix</th>
+                            
                         </tr>
                     </thead>
                 <tbody>
@@ -58,16 +59,16 @@
                         <td><?= htmlspecialchars($reservation['contact']); ?></td>
                         <td><?= htmlspecialchars($reservation['date_start']); ?></td>
                         <td><?= htmlspecialchars($reservation['date_end']); ?></td>
-                        <td><?= htmlspecialchars($reservation['type_car']); ?></td>
+                        <td><?= htmlspecialchars(Constant::$array_select_type_car[$reservation['type_car']]); ?></td>
 
                         <td>
-                            <span class="col-2 mx-2">
+                            <span class="col-4 px-0">
                                 <a href="<?= $roote_show; ?>">Voir</a>
                             </span>
-                            <span class="col-2 mx-2">
+                            <span class="col-4 px-0">
                                 <a href="<?= $roote_edit; ?>">Modifier</a>
                             </span>
-                            <span class="col-2 mx-2">
+                            <span class="col-4 px-0">
                                 <a href="<?= $roote_delete; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?');">Supprimer</a>
                             </span>
                         </td>
