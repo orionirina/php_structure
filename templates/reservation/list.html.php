@@ -63,13 +63,13 @@
 
                         <td>
                             <span class="col-4 px-0">
-                                <a href="<?= $roote_show; ?>">Voir</a>
+                                <a href="<?= $roote_show; ?>" title="Voir"><i class="fas fa-eye"></i></a>
                             </span>
                             <span class="col-4 px-0">
-                                <a href="<?= $roote_edit; ?>">Modifier</a>
+                                <a href="<?= $roote_edit; ?>"><i class="fas fa-edit" title="Modifier"></i></a>
                             </span>
                             <span class="col-4 px-0">
-                                <a href="<?= $roote_delete; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?');">Supprimer</a>
+                                <a href="<?= $roote_delete; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?');" title="Supprimer"><i class="fas fa-trash"></i></a>
                             </span>
                         </td>
                     </tr>
