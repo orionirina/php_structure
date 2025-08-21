@@ -39,7 +39,6 @@
                                 echo '<p class="text-success">' . $message . '</p>';
                             } 
                         ?>  
-                        <a href="/reservation/new" class="btn btn-primary">Faire une réservation</a>
                     </div>
                 </div>
             </div>
