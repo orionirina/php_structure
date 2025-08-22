@@ -257,8 +257,47 @@
         }
 
         public function showAction(HttpRequest $request, HttpResponse $response) {
-            $response->setData('pageTitle', 'Détails de la réservation')
-                    ->render('templates/reservation/show.html.php');
+            session_start();
+            if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+                $response->setStatusCode(401)
+                        ->setData('pageTitle', 'Connexion requise')
+                        ->setData('errorMessage', 'Veuillez vous connecter pour voir les détails de la réservation.')
+                        ->render('templates/login.html.php');
+                return;
+            }
+
+            $id = isset($_GET['id']) ? $_GET['id'] :  null;
+
+            if (!$id || !is_numeric($id)) {
+                $response->setStatusCode(400)
+                        ->setData('pageTitle', 'Erreur')
+                        ->setData('errorMessage', 'ID de réservation invalide.')
+                        ->render('templates/error.html.php');
+                return;
+            }
+
+            try {
+                $stmt = $this->pdo->prepare("SELECT * FROM reservations WHERE id = ?");
+                $stmt->execute([$id]);
+                $reservation = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if (!$reservation) {
+                    $response->setStatusCode(404)
+                            ->setData('pageTitle', 'Erreur')
+                            ->setData('errorMessage', 'Réservation non trouvée.')
+                            ->render('templates/error.html.php');
+                    return;
+                }
+
+                $response->setData('pageTitle', 'Détails de la Réservation')
+                        ->setData('reservation', $reservation)
+                        ->render('templates/reservation/show.html.php');
+            } catch (Exception $e) {
+                $response->setStatusCode(500)
+                        ->setData('pageTitle', 'Erreur')
+                        ->setData('errorMessage', 'Erreur lors de la récupération de la réservation : ' . $e->getMessage())
+                        ->render('templates/error.html.php');
+            }
         }
     }
     

@@ -31,8 +31,50 @@
                 <!-- Main Content -->
             
                 <div class="col-md-9">
-                    <h2>Réservation</h2>
-                    </div>        
+                    <div class="main-content">
+                        <h2><i class="fas fa-eye"></i> Détails de la Réservation</h2>
+                        <div class="reservation-details">
+                            <?php if (!empty($errorMessage)): ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fas fa-exclamation-triangle"></i> <?php echo htmlspecialchars($errorMessage); ?>
+                                </div>
+                            <?php else: ?>
+                                <h3>Réservation #<?php echo htmlspecialchars($reservation['id']); ?></h3>
+                                <p>
+                                    <i class="fas fa-user"></i> 
+                                    <strong>Nom :</strong> <?php echo htmlspecialchars($reservation['name']); ?>
+                                </p>
+                                <p>
+                                    <i class="fas fa-phone"></i> 
+                                    <strong>Contact :</strong> <?php echo htmlspecialchars($reservation['contact']); ?>
+                                </p>
+                                <p>
+                                    <i class="fas fa-car"></i> 
+                                    <strong>Type de voiture :</strong> <?php echo htmlspecialchars(Constant::$array_select_type_car[$reservation['id_car']]); ?>
+                                </p>
+                                <p>
+                                    <i class="fas fa-calendar-day"></i> 
+                                    <strong>Date de début :</strong> <?php echo htmlspecialchars($reservation['date_start']); ?>
+                                </p>
+                                <p>
+                                    <i class="fas fa-calendar-day"></i> 
+                                    <strong>Date de fin :</strong> <?php echo htmlspecialchars($reservation['date_end']); ?>
+                                </p>
+                                <div class="mt-3">
+                                    <a href="/reservation/edit?id=<?php echo $reservation['id']; ?>" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i> Modifier
+                                    </a>
+                                    <a href="/reservation/delete?id=<?php echo $reservation['id']; ?>" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?');">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </a>
+                                    <a href="/reservation/list" class="btn btn-secondary">
+                                        <i class="fas fa-list"></i> Retour à la liste
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>        
             </div>
         </div>
 
