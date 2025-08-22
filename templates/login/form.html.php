@@ -8,7 +8,7 @@
 <html lang="fr">
     
     <?php 
-        require_once "templates/blocks/header.html.php";
+        require_once "templates/blocks/head.html.php";
     ?>
     <body>
         <!-- Header -->

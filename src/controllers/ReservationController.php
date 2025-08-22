@@ -13,6 +13,16 @@
         }
         
         public function newAction(HttpRequest $request, HttpResponse $response) {
+            // Démarrer la session pour vérifier l'état de connexion
+            session_start();
+            if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+                $response->setData('pageTitle', 'Connexion requise')
+                        ->setData('errorMessage', 'Veuillez vous connecter pour accéder à la liste des réservations.')
+                        ->render('templates/login/form.html.php');
+                return;
+            }
+            
+            
             $reservation = null;
             $response->setData('pageTitle', 'Réservation')
                      ->setData('reservation', $reservation)
@@ -20,6 +30,15 @@
         }
         
         public function createAction(HttpRequest $request, HttpResponse $response) {
+            // Démarrer la session pour vérifier l'état de connexion
+            session_start();
+            if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+                $response->setData('pageTitle', 'Connexion requise')
+                        ->setData('errorMessage', 'Veuillez vous connecter pour accéder à la liste des réservations.')
+                        ->render('templates/login/form.html.php');
+                return;
+            }
+
             if ($request->isMethod('POST')) {
                 $name = $request->getPost('name','');
                 $contact = $request->getPost('contact','');
@@ -52,35 +71,53 @@
         }
 
         public function editAction(HttpRequest $request, HttpResponse $response) {          
-                if (!isset($_GET['id'])) {
-                    $response->setData('pageTitle', 'Accueil')
-                        ->setData('message', "Aucun ID fourni")
-                        ->render('templates/index.html.php');
-                }
-            
-                $id = (int) $_GET['id'];
-            
-                $req = $this->pdo->prepare("SELECT * FROM reservations WHERE id = ?");
-                $req->execute([$id]);
-                $reservation = $req->fetch(PDO::FETCH_ASSOC);
-                $req->closeCursor();
-            
-                if (!$reservation) {
-                    $response->setData('pageTitle', 'Accueil')
-                        ->setData('message', "Réservation introuvable !")
-                        ->render('templates/index.html.php');
-                }
-            
-                // Action du formulaire → POST sur la même route
-                $roote = "/reservation/update?id=" . $reservation['id'];
-            
-                $response->setData('pageTitle', 'Modifier Réservation')
-                         ->setData('reservation', $reservation)
-                         ->setData('roote', $roote)
-                         ->render('templates/reservation/edit.html.php');
+            // Démarrer la session pour vérifier l'état de connexion
+            session_start();
+            if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+                $response->setData('pageTitle', 'Connexion requise')
+                        ->setData('errorMessage', 'Veuillez vous connecter pour accéder à la liste des réservations.')
+                        ->render('templates/login/form.html.php');
+                return;
+            }
+
+            if (!isset($_GET['id'])) {
+                $response->setData('pageTitle', 'Accueil')
+                    ->setData('message', "Aucun ID fourni")
+                    ->render('templates/index.html.php');
+            }
+        
+            $id = (int) $_GET['id'];
+        
+            $req = $this->pdo->prepare("SELECT * FROM reservations WHERE id = ?");
+            $req->execute([$id]);
+            $reservation = $req->fetch(PDO::FETCH_ASSOC);
+            $req->closeCursor();
+        
+            if (!$reservation) {
+                $response->setData('pageTitle', 'Accueil')
+                    ->setData('message', "Réservation introuvable !")
+                    ->render('templates/index.html.php');
+            }
+        
+            // Action du formulaire → POST sur la même route
+            $roote = "/reservation/update?id=" . $reservation['id'];
+        
+            $response->setData('pageTitle', 'Modifier Réservation')
+                        ->setData('reservation', $reservation)
+                        ->setData('roote', $roote)
+                        ->render('templates/reservation/edit.html.php');
         }
 
         public function updateAction($request, $response) {
+            // Démarrer la session pour vérifier l'état de connexion
+            session_start();
+            if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+                $response->setData('pageTitle', 'Connexion requise')
+                        ->setData('errorMessage', 'Veuillez vous connecter pour accéder à la liste des réservations.')
+                        ->render('templates/login/form.html.php');
+                return;
+            }
+
             if (!isset($_GET['id'])) {
                 $response->setData('pageTitle', 'Accueil')
                         ->setData('message', "Aucun ID fourni !")
@@ -146,6 +183,15 @@
         }
 
         public function deleteAction(HttpRequest $request, HttpResponse $response) {            
+            // Démarrer la session pour vérifier l'état de connexion
+            session_start();
+            if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+                $response->setData('pageTitle', 'Connexion requise')
+                        ->setData('errorMessage', 'Veuillez vous connecter pour accéder à la liste des réservations.')
+                        ->render('templates/login/form.html.php');
+                return;
+            }
+            
             if (isset($_GET['id'])) {
                 $id = (int) $_GET['id'];
             
@@ -178,6 +224,15 @@
         }   
         
          public function listAction(HttpRequest $request, HttpResponse $response) {
+            // Démarrer la session pour vérifier l'état de connexion
+            session_start();
+            if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+                $response->setData('pageTitle', 'Connexion requise')
+                        ->setData('errorMessage', 'Veuillez vous connecter pour accéder à la liste des réservations.')
+                        ->render('templates/login/form.html.php');
+                return;
+            }
+
             // Récupérer toutes les réservations (juste les colonnes utiles)
             $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end,id_car, id FROM reservations");
             $req->execute([]);
