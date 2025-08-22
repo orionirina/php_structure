@@ -17,5 +17,12 @@ class Constant {
         self::CATEGORY_PLAISIR => "Plaisir",
         self::CATEGORY_MOTO => "Moto",
     ];
+
+    public static function isLogin() {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+            return true;
+        }
+        return false;
+    }
 }
 ?>

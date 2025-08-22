@@ -17,9 +17,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" title="Contact">Contact</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login" title="Connexion"><i class="fas fa-sign-in-alt"></i></a>
-            </li>
+            <?php 
+                require_once "src/models/Constant.php";
+                if (Constant::isLogin()) {
+                    echo '<li class="nav-item">
+                        <a class="nav-link" href="/logout" title="Déconnexion"><i class="fas fa-sign-out-alt"></i></a>
+                    </li>';
+                } else {
+                    echo '<li class="nav-item">
+                        <a class="nav-link" href="/login" title="Connexion"><i class="fas fa-sign-in-alt"></i></a>
+                    </li>';
+                }
+            ?>
         </ul>
     </div>
 </nav>

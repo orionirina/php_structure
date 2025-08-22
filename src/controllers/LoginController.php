@@ -66,5 +66,13 @@
                          ->render('templates/error.html.php');
             }
         }
+
+        public function logout(HttpRequest $request, HttpResponse $response)
+        {
+            session_start();
+            session_unset();
+            session_destroy();
+            $response->redirect('/login');
+        }
     }
 ?>

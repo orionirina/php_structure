@@ -3,6 +3,7 @@
     <route path="/" controller="HomeController" action="index" method="GET" />
     <route path="/login" controller="LoginController" action="showLogin" method="GET" />
     <route path="/login" controller="LoginController" action="handleLogin" method="POST" />
+    <route path="/logout" controller="LoginController" action="logout" method="GET" />
     
     <route path="/reservation/new" controller="ReservationController" action="newAction" method="GET" />
     <route path="/reservation/create" controller="ReservationController" action="createAction" method="POST" />
