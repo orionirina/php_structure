@@ -36,10 +36,7 @@
                     <h1 class="m-4">NOUVELLE RÉSERVATION</h1>
                     <div class="container-fluid">
                         <form action="../reservation/create" method="POST">
-                            <div class="form-group">
-                                <label for="nom" >Nom</label>
-                                <input type="text" class="form-control" id="name" name="name" value="" placeholder="Entrez votre nom" required>
-                            </div>
+                            
 
                             <div class="row">
                                 <div class="form-group col-6">

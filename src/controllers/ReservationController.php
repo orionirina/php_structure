@@ -2,6 +2,7 @@
     require_once 'includes/HttpRequest.php';
     require_once 'includes/HttpResponse.php';
     require_once 'src/services/PdoService.php';
+    require_once 'src/models/Constant.php';
 
     class ReservationController {
         private $pdo;
@@ -43,22 +44,24 @@
             }
 
             if ($request->isMethod('POST')) {
-                // $name = $request->getPost('name','');
+                $user = Constant::getSessionUser();
+                
                 $contact = $request->getPost('contact','');
                 $date_start = $request->getPost('date_start','');
                 $date_end = $request->getPost('date_end','');
                 $id_car = $request->getPost('id_car','');
+                $id_user = $user['id'];
 
                 // var_dump($name, $contact, $date_start, $date_end, $type_car);die;
 
-                $req = $this->pdo->prepare("INSERT INTO reservations (name, contact, date_start, date_end, id_car, status) VALUES (:contact, :date_start, :date_end, :id_car, :status)");
+                $req = $this->pdo->prepare("INSERT INTO reservations (contact, date_start, date_end, id_car, status, id_user) VALUES (:contact, :date_start, :date_end, :id_car, :status, :id_user)");
                 $req->execute([
-                    // ':name' => $name,
                     ':contact' => $contact,
                     ':date_start' => $date_start,
                     ':date_end' => $date_end,
                     ':id_car' => $id_car,
                     ':status' => 1,
+                    ':id_user' => $id_user,
                 ]);
 
                 
@@ -172,12 +175,12 @@
         
                 // Mise à jour
                 $requete = $this->pdo->prepare("UPDATE reservations 
-                    SET name = :name, contact = :contact, date_start = :date_start, date_end = :date_end, id_car = :id_car 
+                    SET contact = :contact, date_start = :date_start, date_end = :date_end, id_car = :id_car 
                     WHERE id = :id
                 ");
 
                 $requete->execute([
-                    "name"       => $name,
+                    // "name"       => $name,
                     "contact"    => $contact,
                     "date_start" => $date_start,
                     "date_end"   => $date_end,
@@ -187,7 +190,7 @@
         
                 // Redirection vers la liste après update
                 $response->setData('pageTitle', 'Accueil')
-                        ->setData('message', "Modification de la réservation de $name")
+                        ->setData('message', "Modification de la réservation de #user")
                         ->render('templates/index.html.php');
 
             }
