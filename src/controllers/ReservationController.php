@@ -95,6 +95,12 @@
             $req = $this->pdo->prepare("SELECT * FROM reservations WHERE id = ?");
             $req->execute([$id]);
             $reservation = $req->fetch(PDO::FETCH_ASSOC);
+
+            $req = $this->pdo->prepare("SELECT * FROM car");
+            $req->execute([]);
+            $listCar = $req->fetchAll(PDO::FETCH_ASSOC);
+            // var_dump($listCar);die;
+
             $req->closeCursor();
         
             if (!$reservation) {
@@ -107,6 +113,7 @@
             $roote = "/reservation/update?id=" . $reservation['id'];
         
             $response->setData('pageTitle', 'Modifier Réservation')
+                        ->setData('listCar', $listCar)
                         ->setData('reservation', $reservation)
                         ->setData('roote', $roote)
                         ->render('templates/reservation/edit.html.php');
