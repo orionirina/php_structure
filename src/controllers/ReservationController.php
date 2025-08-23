@@ -245,11 +245,13 @@
             }
 
             // Récupérer toutes les réservations (juste les colonnes utiles)
-            $req = $this->pdo->prepare("SELECT name, contact, date_start, date_end,id_car, id FROM reservations");
+            $req = $this->pdo->prepare("SELECT reservations.id, reservations.date_start, reservations.date_end, reservations.contact, car.name AS car_name FROM reservations LEFT JOIN car ON car.id = reservations.id_car" );
             $req->execute([]);
             $reservations = $req->fetchAll(PDO::FETCH_ASSOC);
             $req->closeCursor();
-        
+
+            // var_dump($reservations);die;
+
             // Récupérer une réservation spécifique si id est passé en GET
             $data = null;
             if (isset($_GET['id'])) {

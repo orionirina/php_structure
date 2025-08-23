@@ -57,11 +57,11 @@
                                 $roote_delete = "/reservation/delete?id=" . $reservation['id'];
                             ?>
                             <tr>
-                                <td><?= htmlspecialchars($reservation['name']); ?></td>
+                                <td>USER</td>
                                 <td><?= htmlspecialchars($reservation['contact']); ?></td>
                                 <td><?= htmlspecialchars($reservation['date_start']); ?></td>
                                 <td><?= htmlspecialchars($reservation['date_end']); ?></td>
-                                <td><?= htmlspecialchars(Constant::$array_select_type_car[$reservation['id_car']]); ?></td>
+                                <td><?= htmlspecialchars($reservation['car_name']); ?></td>
 
                                 <td>
                                     <span class="col-4 px-0">
