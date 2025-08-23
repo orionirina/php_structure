@@ -45,9 +45,9 @@
                                 <div class="form-group col-6">
                                     <label for="id_car">Type de voiture</label>
                                     <select class="form-control" id="id_car" name="id_car" placeholder="Sélectionnez un type de voiture" required>
-                                        <option value="<?= $listCar[0]['id'] ?>"><?= $listCar[0]['name'] ?></option>
-                                        <option value="<?= $listCar[1]['id'] ?>"><?= $listCar[1]['name'] ?></option>
-                                        <option value="<?= $listCar[2]['id'] ?>"><?= $listCar[2]['name'] ?></option>
+                                        <?php foreach ($listCar as $car): ?>
+                                            <option value="<?= $car['id'] ?>"><?= $car['name'] ?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                                 
