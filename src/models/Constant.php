@@ -17,5 +17,15 @@ class Constant {
         }
         return false;
     }
+    public static function getSessionUser() {
+        if (isset($_SESSION['user_id']) && isset($_SESSION['name']) && isset($_SESSION['logged_in'])) {
+            return [
+                'id' => $_SESSION['user_id'],
+                'name' => $_SESSION['name'],
+                'logged_in' => $_SESSION['logged_in'],
+            ];
+        }
+        return [];
+    }
 }
 ?>
