@@ -22,10 +22,13 @@
                 return;
             }
             
-            
-            $reservation = null;
+            $req = $this->pdo->prepare("SELECT * FROM car");
+            $req->execute([]);
+            $listCar = $req->fetchAll(PDO::FETCH_ASSOC);
+            $req->closeCursor();
+
             $response->setData('pageTitle', 'Réservation')
-                     ->setData('reservation', $reservation)
+                     ->setData('listCar', $listCar)
                      ->render('templates/reservation/new.html.php');
         }
         
@@ -57,6 +60,7 @@
                     ':id_car' => $id_car,
                     ':status' => 1,
                 ]);
+
                 
                 // $response->redirect('/');
                 $response->setData('pageTitle', 'Accueil')
