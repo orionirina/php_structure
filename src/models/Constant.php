@@ -1,21 +1,14 @@
 <?php
 
 class Constant {
-    const CATEGORY_MINIBUS = 1;
-    const CATEGORY_CAMION  = 2;
-    const CATEGORY_PLAISIR = 4;
-    const CATEGORY_MOTO    = 5;
-
-    const TYPE_MERCEDES = 10;
-    const TYPE_RENAULT = 11;
-    const TYPE_TOYOTA = 12;
-    const TYPE_MAZDA = 13;
+    const TYPE_MERCEDES_307 = 1;
+    const TYPE_PEUGEUT_306  = 2;
+    const TYPE_MAZADA_ECLIPSE  = 3;
 
     public static $array_select_type_car = [
-        self::CATEGORY_MINIBUS => "Minibus",
-        self::CATEGORY_CAMION => "Camion",
-        self::CATEGORY_PLAISIR => "Plaisir",
-        self::CATEGORY_MOTO => "Moto",
+        self::TYPE_MERCEDES_307 => "Mercedes 307",
+        self::TYPE_PEUGEUT_306 => "Peugeot 306",
+        self::TYPE_MAZADA_ECLIPSE => "Mazda eclipse",
     ];
 
     public static function isLogin() {
