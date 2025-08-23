@@ -43,7 +43,7 @@
             }
 
             if ($request->isMethod('POST')) {
-                $name = $request->getPost('name','');
+                // $name = $request->getPost('name','');
                 $contact = $request->getPost('contact','');
                 $date_start = $request->getPost('date_start','');
                 $date_end = $request->getPost('date_end','');
@@ -51,9 +51,9 @@
 
                 // var_dump($name, $contact, $date_start, $date_end, $type_car);die;
 
-                $req = $this->pdo->prepare("INSERT INTO reservations (name, contact, date_start, date_end, id_car, status) VALUES (:name, :contact, :date_start, :date_end, :id_car, :status)");
+                $req = $this->pdo->prepare("INSERT INTO reservations (name, contact, date_start, date_end, id_car, status) VALUES (:contact, :date_start, :date_end, :id_car, :status)");
                 $req->execute([
-                    ':name' => $name,
+                    // ':name' => $name,
                     ':contact' => $contact,
                     ':date_start' => $date_start,
                     ':date_end' => $date_end,
@@ -64,7 +64,7 @@
                 
                 // $response->redirect('/');
                 $response->setData('pageTitle', 'Accueil')
-                    ->setData('message', "Ajout de reservation de $name")
+                    ->setData('message', "Ajout de reservation de #user")
                     ->render('templates/index.html.php');
                 
             } else{
@@ -139,14 +139,14 @@
         
             // Vérifier que le formulaire est soumis en POST
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $name       = $_POST['name'] ?? null;
+                // $name       = $_POST['name'] ?? null;
                 $contact    = $_POST['contact'] ?? null;
                 $date_start = $_POST['date_start'] ?? null;
                 $date_end   = $_POST['date_end'] ?? null;
                 $id_car   = $_POST['id_car'] ?? null;
 
         
-                if (!$name || !$contact || !$date_start || !$date_end || !$id_car) {
+                if (!$contact || !$date_start || !$date_end || !$id_car) {
                     $response->setData('pageTitle', 'Accueil')
                             ->setData('message', "Tous les champs sont obligatoires")
                             ->render('templates/index.html.php');
@@ -223,9 +223,9 @@
                 $requete->execute(["id" => $id]);
             
                 // Redirection vers la liste
-                $name = $reservation['name'];
+                // $name = $reservation['name'];
                 $response->setData('pageTitle', 'Accueil')
-                        ->setData('message', "Suppresion  de la réservation de $name ")
+                        ->setData('message', "Suppresion  de la réservation de #user ")
                         ->render('templates/index.html.php');
 
 

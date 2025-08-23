@@ -38,7 +38,7 @@
                         <form action="<?= $roote ?>" method="POST">
                             <div class="form-group">
                                 <label for="nom">Nom</label>
-                                <input type="text" class="form-control" id="name" name="name" value="<?= $reservation['name'];?>" placeholder="Entrez votre nom" required>
+                                <input type="text" class="form-control" id="name" name="name" value="USER" placeholder="Entrez votre nom" required>
                             </div>
 
                             <div class="row">

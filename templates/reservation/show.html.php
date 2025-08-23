@@ -42,7 +42,7 @@
                                 <h3>Réservation #<?php echo htmlspecialchars($reservation['id']); ?></h3>
                                 <p>
                                     <i class="fas fa-user"></i> 
-                                    <strong>Nom :</strong> <?php echo htmlspecialchars($reservation['name']); ?>
+                                    <strong>Nom :</strong> USER 
                                 </p>
                                 <p>
                                     <i class="fas fa-phone"></i> 
