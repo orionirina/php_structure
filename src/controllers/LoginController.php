@@ -5,15 +5,15 @@
 
     class LoginController {
 
-        public function showLogin(HttpRequest $request, HttpResponse $response) {
+        public function showSignInLogin(HttpRequest $request, HttpResponse $response) {
             $nombre = 3444;
             $response->setData('errorMessage', '')
                     ->setData('nombra', $nombre)
-                    ->render('templates/login/form.html.php');
+                    ->render('templates/login/sign_in_form.html.php');
                     
         }
 
-        public function handleLogin(HttpRequest $request, HttpResponse $response) {
+        public function handleSignInLogin(HttpRequest $request, HttpResponse $response) {
             $pdoService = new PdoService();
             $pdo = $pdoService->getPdo();
 
@@ -27,7 +27,7 @@
                     $response->setStatusCode(400)
                             ->setData('pageTitle', 'Connexion')
                             ->setData('errorMessage', 'Tous les champs sont requis.')
-                            ->render('templates/login/form.html.php');
+                            ->render('templates/login/sign_in_form.html.php');
                     return;
                 }
 
@@ -52,7 +52,7 @@
                         $response->setStatusCode(401)
                                 ->setData('pageTitle', 'Connexion')
                                 ->setData('errorMessage', 'Nom d\'utilisateur ou mot de passe incorrect.')
-                                ->render('templates/login/form.html.php');
+                                ->render('templates/login/sign_in_form.html.php');
                     }
                 } catch (Exception $e) {
                     $response->setStatusCode(500)
@@ -67,6 +67,58 @@
             }
         }
 
+        public function showSignUpLogin(HttpRequest $request, HttpResponse $response) {
+            $nombre = 3444;
+            $response->setData('errorMessage', '')
+                    ->setData('nombra', $nombre)
+                    ->render('templates/login/sign_up_form.html.php');
+        }
+
+        public function handleSignUpLogin(HttpRequest $request, HttpResponse $response) {
+            $pdoService = new PdoService();
+            $pdo = $pdoService->getPdo();
+
+            if ($request->isMethod('POST')) {
+                $name = $request->getPost('name','');
+                $contact = $request->getPost('contact','');
+                $email = $request->getPost('email','');
+                $password = $request->getPost('password','');
+
+                // Validation simple
+                if (empty($name) || empty($contact) || empty($email) || empty($password)) {
+                    $response->setStatusCode(400)
+                            ->setData('pageTitle', 'Connexion')
+                            ->setData('errorMessage', 'Tous les champs sont requis.')
+                            ->render('templates/login/sign_up_form.html.php');
+                    return;
+                }
+
+               try {
+                    $req = $pdo->prepare("INSERT INTO user (name, contact, email, password) VALUES (:name, :contact, :email, :password)");
+                    $req->execute([
+                        ':name' => $name,
+                        ':contact' => $contact,
+                        ':email' => $email,
+                        ':password' => $password
+                    ]);
+                    
+               $response->setData('pageTitle', 'Accueil')
+                        ->setData('message', "Ajout de l'utilisateur: $name")
+                        ->render('templates/index.html.php');
+                       
+                  
+                } catch (Exception $e) {
+                    $response->setStatusCode(500)
+                            ->setData('pageTitle', 'Erreur')
+                            ->setData('errorMessage', 'Erreur lors de la connexion : ' . $e->getMessage())
+                            ->render('templates/error.html.php');
+                }
+            } else{
+                $response->setData('pageTitle', 'Erreur')
+                         ->setData('errorMessage', 'Methode non autorisée')
+                         ->render('templates/error.html.php');
+            }
+    }
         public function logout(HttpRequest $request, HttpResponse $response)
         {
             session_start();

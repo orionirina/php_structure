@@ -42,7 +42,7 @@
                                 <h3>Réservation #<?php echo htmlspecialchars($reservation['id']); ?></h3>
                                 <p>
                                     <i class="fas fa-user"></i> 
-                                    <strong>Nom :</strong> USER 
+                                    <strong>Nom :</strong><?php echo htmlspecialchars($reservation['user_name']); ?> 
                                 </p>
                                 <p>
                                     <i class="fas fa-phone"></i> 
@@ -50,7 +50,7 @@
                                 </p>
                                 <p>
                                     <i class="fas fa-car"></i> 
-                                    <strong>Type de voiture :</strong> <?php echo htmlspecialchars(Constant::$array_select_type_car[$reservation['id_car']]); ?>
+                                    <strong>Type de voiture :</strong> <?php echo htmlspecialchars($reservation['car_name']); ?>
                                 </p>
                                 <p>
                                     <i class="fas fa-calendar-day"></i> 

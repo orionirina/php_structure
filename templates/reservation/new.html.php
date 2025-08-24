@@ -47,11 +47,6 @@
                                         <?php endforeach ?>
                                     </select>
                                 </div>
-                                
-                                <div class="form-group col-6">
-                                    <label for="contact">Contact</label>
-                                    <input type="text" class="form-control" id="contact" name="contact" placeholder="Entrez votre contact (email ou téléphone)" required>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">

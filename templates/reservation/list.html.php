@@ -57,7 +57,7 @@
                                 $roote_delete = "/reservation/delete?id=" . $reservation['id'];
                             ?>
                             <tr>
-                                <td>USER</td>
+                                <td><?= htmlspecialchars($reservation['user_name']); ?></td>
                                 <td><?= htmlspecialchars($reservation['contact']); ?></td>
                                 <td><?= htmlspecialchars($reservation['date_start']); ?></td>
                                 <td><?= htmlspecialchars($reservation['date_end']); ?></td>

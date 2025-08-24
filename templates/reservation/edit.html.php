@@ -36,11 +36,6 @@
                     <h5 class="mx-3">MODIFICATION DE LA  RÉSERVATION</h5>
                     <div class="container-fluid">
                         <form action="<?= $roote ?>" method="POST">
-                            <div class="form-group">
-                                <label for="nom">Nom</label>
-                                <input type="text" class="form-control" id="name" name="name" value="USER" placeholder="Entrez votre nom" required>
-                            </div>
-
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label for="id_car">Type de voiture</label>
@@ -55,10 +50,6 @@
                                     </select>
                                 </div>
                                 
-                                <div class="form-group col-6">
-                                    <label for="contact">Contact</label>
-                                    <input type="text" class="form-control" id="contact" name="contact" value="<?= $reservation['contact'];?>" placeholder="Entrez votre contact (email ou téléphone)" required>
-                                </div>
                             </div>
 
                             <div class="row">

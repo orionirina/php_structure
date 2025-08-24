@@ -37,7 +37,17 @@
                     <?php endif ?>
                     
                     <div class ="login-form">
-                        <form method="POST" action="/login">
+                        <form method="POST" action="/login/sign_up">
+                            <div class="form-group">
+                                <label for="email">Name</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Contact</label>
+                                <input type="text" class="form-control" name="contact" required>
+                            </div>
+
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" name="email" required>
@@ -49,8 +59,8 @@
                             </div>
                            <button type="submit" class="btn btn-primary btn-block"> Se connecter</button>
                         </form>
+                        <a href="/login" class="text-danger">Déja un compte? Sign in</a>
                     </div>
- 
                 </div>
             </div>
         </div>
