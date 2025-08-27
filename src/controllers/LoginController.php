@@ -39,8 +39,9 @@
                     // var_dump($user , password_verify($password, $user['password']));die;
 
                     // if ($user && password_verify($password, $user['password'])) {
-                    if ($user && $password === $user['password']) {
+                   // if ($user && $password === $user['password']) {
                         // Démarrer la session
+                    if($user && password_verify($password, $user['password'])){
                         session_start();
                         $_SESSION['user_id'] = $user['id'];
                         $_SESSION['name'] = $user['name'];
@@ -99,7 +100,7 @@
                         ':name' => $name,
                         ':contact' => $contact,
                         ':email' => $email,
-                        ':password' => $password
+                        ':password' => password_hash($password,PASSWORD_DEFAULT)
                     ]);
                     
                $response->setData('pageTitle', 'Accueil')
