@@ -18,10 +18,11 @@ class Constant {
         return false;
     }
     public static function getSessionUser() {
-        if (isset($_SESSION['user_id']) && isset($_SESSION['name']) && isset($_SESSION['logged_in'])) {
+        if (isset($_SESSION['user_id']) && isset($_SESSION['name']) && isset($_SESSION['logged_in']) && isset($_SESSION['role'])) {
             return [
                 'id' => $_SESSION['user_id'],
                 'name' => $_SESSION['name'],
+                'role' => $_SESSION['role'],
                 'logged_in' => $_SESSION['logged_in'],
             ];
         }

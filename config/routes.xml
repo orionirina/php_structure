@@ -7,14 +7,20 @@
     <route path="/login/sign_up" controller="LoginController" action="handleSignUpLogin" method="POST" />
     <route path="/logout" controller="LoginController" action="logout" method="GET" />
     
+    <route path="/car/new" controller="CarController" action="newCar" method="GET" />
+    <route path="/car/create" controller="CarController" action="createCar" method="POST" />
+    <route path="/car/list" controller="CarController" action="listCar" method="GET" />
+    <route path="/car/view" controller="CarController" action="showCar" method="GET" />
+    <route path="/car/edit" controller="CarController" action="editCar" method="GET" />
+    <route path="/car/update" controller="CarController" action="updateCar" method="POST" />
+    <route path="/car/delete" controller="CarController" action="deleteCar" method="GET" />
+
+
     <route path="/reservation/new" controller="ReservationController" action="newAction" method="GET" />
     <route path="/reservation/create" controller="ReservationController" action="createAction" method="POST" />
-    
     <route path="/reservation/list" controller="ReservationController" action="listAction" method="GET" />
     <route path="/reservation/view" controller="ReservationController" action="showAction" method="GET" />
-    
     <route path="/reservation/edit" controller="ReservationController" action="editAction" method="GET" />
     <route path="/reservation/update" controller="ReservationController" action="updateAction" method="POST" />
-
     <route path="/reservation/delete" controller="ReservationController" action="deleteAction" method="GET" />
 </routes>

@@ -36,15 +36,12 @@
                     $req->execute([ 'email' => $email]);
                     $user = $req->fetch(PDO::FETCH_ASSOC);
 
-                    // var_dump($user , password_verify($password, $user['password']));die;
-
-                    // if ($user && password_verify($password, $user['password'])) {
-                   // if ($user && $password === $user['password']) {
                         // Démarrer la session
                     if($user && password_verify($password, $user['password'])){
                         session_start();
                         $_SESSION['user_id'] = $user['id'];
                         $_SESSION['name'] = $user['name'];
+                        $_SESSION['role'] = $user['role'];
                         $_SESSION['logged_in'] = true;
 
                         // Rediriger vers la page d'accueil ou la liste des réservations

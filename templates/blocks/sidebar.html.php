@@ -27,6 +27,13 @@
                     <i class="fas fa-list"></i> Réservations
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link  text-secondary" href="/car/list" title="">
+                    <i class="fa-solid fa-car"></i> Car
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>

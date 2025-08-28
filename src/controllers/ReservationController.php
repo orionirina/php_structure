@@ -41,7 +41,7 @@
             if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 $response->setData('pageTitle', 'Connexion requise')
                         ->setData('errorMessage', 'Veuillez vous connecter pour accéder à la liste des réservations.')
-                        ->render('templates/login/form.html.php');
+                        ->render('templates/login/sign_in_form.html.php');
                 return;
             }
 
@@ -341,6 +341,6 @@
                          ->setData('errorMessage', 'Erreur lors de la récupération de la réservation : ' . $e->getMessage())
                          ->render('templates/error.html.php');
             }
-                        }   
-        }
+        }   
+    }
 ?>
